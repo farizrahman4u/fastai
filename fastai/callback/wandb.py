@@ -133,6 +133,7 @@ def gather_args(self:Learner):
     # args stored by `store_attr`
     cb_args = {f'{cb}':getattr(cb,'__stored_args__',True) for cb in self.cbs}
     args = {'Learner':self, **cb_args}
+    return args
     # input dimensions
     try:
         n_inp = self.dls.train.n_inp
@@ -152,7 +153,6 @@ def gather_args(self:Learner):
         args['dls.after_item'] = f'{self.dls.after_item}'
         args['dls.before_batch'] = f'{self.dls.before_batch}'
         args['dls.after_batch'] = f'{self.dls.after_batch}'
-    return {}
     return args
 
 # Cell
