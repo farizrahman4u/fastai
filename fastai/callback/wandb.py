@@ -101,7 +101,6 @@ class WandbCallback(Callback):
         wandb.log(wandb_process(x, y, its, outs), step=self._wandb_step)
 
     def after_epoch(self):
-        return
         "Log validation loss and custom metrics & log prediction samples"
         # Correct any epoch rounding error and overwrite value
         self._wandb_epoch = round(self._wandb_epoch)
