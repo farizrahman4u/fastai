@@ -29,7 +29,6 @@ class WandbCallback(Callback):
         store_attr('log,log_preds,log_model,log_dataset,dataset_name,valid_dl,n_preds,seed,reorder')
 
     def before_fit(self):
-        return
         "Call watch method to log model topology, gradients & weights"
         self.run = not hasattr(self.learn, 'lr_finder') and not hasattr(self, "gather_preds") and rank_distrib()==0
         if not self.run: return
@@ -45,7 +44,7 @@ class WandbCallback(Callback):
         if not WandbCallback._wandb_watch_called:
             WandbCallback._wandb_watch_called = True
             # Logs model topology and optionally gradients and weights
-            # wandb.watch(self.learn.model, log=self.log)
+            wandb.watch(self.learn.model, log=self.log)
 
         # log dataset
         assert isinstance(self.log_dataset, (str, Path, bool)), 'log_dataset must be a path or a boolean'
