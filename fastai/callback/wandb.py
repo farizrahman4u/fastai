@@ -44,7 +44,7 @@ class WandbCallback(Callback):
         if not WandbCallback._wandb_watch_called:
             WandbCallback._wandb_watch_called = True
             # Logs model topology and optionally gradients and weights
-            wandb.watch(self.learn.model, log=self.log)
+            # wandb.watch(self.learn.model, log=self.log)
 
         # log dataset
         assert isinstance(self.log_dataset, (str, Path, bool)), 'log_dataset must be a path or a boolean'
