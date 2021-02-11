@@ -141,7 +141,6 @@ def gather_args(self:Learner):
         args.update({f'input {n+1} dim {i+1}':d for n in range(n_inp) for i,d in enumerate(list(detuplify(xb[n]).shape))})
     except: print(f'Could not gather input dimensions')
     # other useful information
-    return args
     with ignore_exceptions():
         args['batch size'] = self.dls.bs
         args['batch per epoch'] = len(self.dls.train)
@@ -153,6 +152,7 @@ def gather_args(self:Learner):
         args['dls.after_item'] = f'{self.dls.after_item}'
         args['dls.before_batch'] = f'{self.dls.before_batch}'
         args['dls.after_batch'] = f'{self.dls.after_batch}'
+    return {}
     return args
 
 # Cell
