@@ -84,7 +84,6 @@ class WandbCallback(Callback):
                 print(f'WandbCallback was not able to prepare a DataLoader for logging prediction samples -> {e}')
 
     def after_batch(self):
-        return
         "Log hyper-parameters and training loss"
         if self.training:
             self._wandb_step += 1
@@ -93,7 +92,6 @@ class WandbCallback(Callback):
             wandb.log({'epoch': self._wandb_epoch, 'train_loss': to_detach(self.smooth_loss.clone()), 'raw_loss': to_detach(self.loss.clone()), **hypers}, step=self._wandb_step)
 
     def log_predictions(self, preds):
-        return
         inp,preds,targs,out = preds
         b = tuplify(inp) + tuplify(targs)
         x,y,its,outs = self.valid_dl.show_results(b, out, show=False, max_n=self.n_preds)
@@ -114,7 +112,6 @@ class WandbCallback(Callback):
         wandb.log({n:s for n,s in zip(self.recorder.metric_names, self.recorder.log) if n not in ['train_loss', 'epoch', 'time']}, step=self._wandb_step)
 
     def after_fit(self):
-        return
         if self.log_model:
             if self.save_model.last_saved_path is None:
                 print('WandbCallback could not retrieve a model to upload')
