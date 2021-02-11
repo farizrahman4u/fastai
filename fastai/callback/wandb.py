@@ -36,29 +36,29 @@ class WandbCallback(Callback):
         # Log config parameters
         log_config = self.learn.gather_args()
         _format_config(log_config)
-        try:
-            wandb.config.update(log_config, allow_val_change=True)
-        except Exception as e:
-            print(f'WandbCallback could not log config parameters -> {e}')
+#         try:
+#             wandb.config.update(log_config, allow_val_change=True)
+#         except Exception as e:
+#             print(f'WandbCallback could not log config parameters -> {e}')
 
-        if not WandbCallback._wandb_watch_called:
-            WandbCallback._wandb_watch_called = True
-            # Logs model topology and optionally gradients and weights
-            wandb.watch(self.learn.model, log=self.log)
+#         if not WandbCallback._wandb_watch_called:
+#             WandbCallback._wandb_watch_called = True
+#             # Logs model topology and optionally gradients and weights
+#             wandb.watch(self.learn.model, log=self.log)
 
-        # log dataset
-        assert isinstance(self.log_dataset, (str, Path, bool)), 'log_dataset must be a path or a boolean'
-        if self.log_dataset is True:
-            if Path(self.dls.path) == Path('.'):
-                print('WandbCallback could not retrieve the dataset path, please provide it explicitly to "log_dataset"')
-                self.log_dataset = False
-            else:
-                self.log_dataset = self.dls.path
-        if self.log_dataset:
-            self.log_dataset = Path(self.log_dataset)
-            assert self.log_dataset.is_dir(), f'log_dataset must be a valid directory: {self.log_dataset}'
-            metadata = {'path relative to learner': os.path.relpath(self.log_dataset, self.learn.path)}
-            log_dataset(path=self.log_dataset, name=self.dataset_name, metadata=metadata)
+#         # log dataset
+#         assert isinstance(self.log_dataset, (str, Path, bool)), 'log_dataset must be a path or a boolean'
+#         if self.log_dataset is True:
+#             if Path(self.dls.path) == Path('.'):
+#                 print('WandbCallback could not retrieve the dataset path, please provide it explicitly to "log_dataset"')
+#                 self.log_dataset = False
+#             else:
+#                 self.log_dataset = self.dls.path
+#         if self.log_dataset:
+#             self.log_dataset = Path(self.log_dataset)
+#             assert self.log_dataset.is_dir(), f'log_dataset must be a valid directory: {self.log_dataset}'
+#             metadata = {'path relative to learner': os.path.relpath(self.log_dataset, self.learn.path)}
+#             log_dataset(path=self.log_dataset, name=self.dataset_name, metadata=metadata)
 
         # log model
         if self.log_model and not hasattr(self, 'save_model'):
