@@ -134,8 +134,8 @@ def gather_args(self:Learner):
     try:
         n_inp = self.dls.train.n_inp
         args['n_inp'] = n_inp
-#         xb = self.dls.train.one_batch()[:n_inp]
-#         args.update({f'input {n+1} dim {i+1}':d for n in range(n_inp) for i,d in enumerate(list(detuplify(xb[n]).shape))})
+        # xb = self.dls.train.one_batch()[:n_inp]
+        # args.update({f'input {n+1} dim {i+1}':d for n in range(n_inp) for i,d in enumerate(list(detuplify(xb[n]).shape))})
     except: print(f'Could not gather input dimensions')
     # other useful information
     with ignore_exceptions():
