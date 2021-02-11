@@ -129,7 +129,6 @@ class WandbCallback(Callback):
 # Cell
 @patch
 def gather_args(self:Learner):
-    return {}
     "Gather config parameters accessible to the learner"
     # args stored by `store_attr`
     cb_args = {f'{cb}':getattr(cb,'__stored_args__',True) for cb in self.cbs}
@@ -142,6 +141,7 @@ def gather_args(self:Learner):
         args.update({f'input {n+1} dim {i+1}':d for n in range(n_inp) for i,d in enumerate(list(detuplify(xb[n]).shape))})
     except: print(f'Could not gather input dimensions')
     # other useful information
+    return args
     with ignore_exceptions():
         args['batch size'] = self.dls.bs
         args['batch per epoch'] = len(self.dls.train)
