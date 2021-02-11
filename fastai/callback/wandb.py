@@ -34,8 +34,8 @@ class WandbCallback(Callback):
         if not self.run: return
 
         # Log config parameters
-#         log_config = self.learn.gather_args()
-#         _format_config(log_config)
+        log_config = self.learn.gather_args()
+        _format_config(log_config)
 #         try:
 #             wandb.config.update(log_config, allow_val_change=True)
 #         except Exception as e:
@@ -129,6 +129,7 @@ class WandbCallback(Callback):
 # Cell
 @patch
 def gather_args(self:Learner):
+    return {}
     "Gather config parameters accessible to the learner"
     # args stored by `store_attr`
     cb_args = {f'{cb}':getattr(cb,'__stored_args__',True) for cb in self.cbs}
